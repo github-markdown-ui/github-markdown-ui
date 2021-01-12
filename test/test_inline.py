@@ -13,5 +13,4 @@ def test_code_span(string, delimiter):
         with pytest.raises(Exception):
             inline.code_span(string, delimiter=delimiter)
     else:
-        assert (inline.code_span(string, delimiter=delimiter) ==
-                '`' * delimiter + string + '`' * delimiter)
+        assert inline.code_span(string, delimiter=delimiter) == '`' * delimiter + string + '`' * delimiter
