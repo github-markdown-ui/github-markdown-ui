@@ -16,7 +16,7 @@ class TableAlignment(Enum):
     RIGHT = auto()
 
 
-def table(content: List[List[str]], alignment: List[Optional[TableAlignment]] = None) -> None:
+def table(content: List[List[str]], alignment: List[Optional[TableAlignment]] = None) -> str:
     """Creates a table using HTML syntax.
 
     The content parameter is a list containing lists of equal length, which correspond to the contents of the table.
