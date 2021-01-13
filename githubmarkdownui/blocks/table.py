@@ -22,13 +22,13 @@ def table(content: List[List[str]], alignment: List[Optional[TableAlignment]] = 
     The content parameter is a list containing lists of equal length, which correspond to the contents of the table.
     The first sublist is the table headers, and each remaining sublist is one row of the table.
 
-    For example, the content parameter [['column 1', 'column 2'], ['hello', 'world'], ['foo', 'bar']] would create a
-    table like this:
+    For example, the content parameter [['column 1', 'column 2'], ['this is a long string', 'hello'], ['foo', 'bar']]
+    and alignment parameter [TableAlignment.RIGHT, None] would create a table like this:
 
-    column 1 | column 2
-    ---------|---------
-    hello    | world
-    foo      | bar
+                 column 1 | column 2
+    ----------------------|---------
+    this is a long string | hello
+                      foo | bar
 
     :param content: A list of lists containing the contents of the table
     :param alignment: An optional list specifying how each column of the table should be aligned. This list must be the

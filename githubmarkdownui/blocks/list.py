@@ -14,7 +14,12 @@ class HtmlList(ABC):
 
 
 class OrderedList(HtmlList):
-    """Class to represent an ordered HTML list."""
+    """Class to represent an ordered HTML list. An ordered list is a numbered list, for example:
+
+    1. foo
+    2. bar
+    3. baz
+    """
     def __init__(self, items: List[Union[str, HtmlList]], starting_number: int = 1) -> None:
         """Creates an ordered list using HTML syntax.
 
@@ -28,7 +33,12 @@ class OrderedList(HtmlList):
 
 
 class UnorderedList(HtmlList):
-    """Class to represent an unordered HTML list."""
+    """Class to represent an unordered HTML list. An unordered list is a bullet point list, for example:
+
+    - foo
+    - bar
+    - baz
+    """
     def __init__(self, items: List[Union[str, HtmlList]]) -> None:
         pass
 

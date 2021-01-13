@@ -4,6 +4,9 @@ from githubmarkdownui.emoji import Emoji
 
 
 class Job:
+    """This class is intended to be used to help with the creation of job lists or job trees, which can be useful
+    for displaying jobs and child jobs within a build pipeline.
+    """
     def __init__(self, emoji: Emoji, description: str, info: Optional[str] = None):
         """Creates a Job to be used for a job list or job tree.
 
