@@ -19,10 +19,15 @@ def italics(text: str) -> str:
 
 
 def link(text: str, url: str) -> str:
-    """Takes the given string and turns it into a link using <a> tags."""
+    """Turns the given text into a link using <a> tags."""
     pass
 
 
 def strong_emphasis(text: str) -> str:
     """Strongly emphasizes (bolds) the given text by placing <strong> tags around it."""
+    pass
+
+
+def strikethrough(text: str) -> str:
+    """Formats the text with a strikethrough by placing <del> tags around it."""
     pass
