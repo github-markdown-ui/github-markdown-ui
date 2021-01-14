@@ -8,7 +8,7 @@ from typing import List, Union
 class HtmlList(ABC):
     """Abstract class for a HTML list. Any HtmlLists inside this one will be displayed as a sublist of the element before it.
     """
-    items: Union[str, HtmlList]
+    items: List[Union[str, HtmlList]]
 
 
 @dataclass
