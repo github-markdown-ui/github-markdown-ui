@@ -1,20 +1,20 @@
+from dataclasses import dataclass
 from typing import List, Optional
 
 from githubmarkdownui.emoji import Emoji
 
 
+@dataclass
 class Job:
     """This class is intended to be used to help with the creation of job lists or job trees, which can be useful
     for displaying jobs and child jobs within a build pipeline.
-    """
-    def __init__(self, emoji: Emoji, description: str, info: Optional[str] = None):
-        """Creates a Job to be used for a job list or job tree.
 
-        :param emoji: The emoji to signal job success (Emoji.CHECK_MARK) or failure (Emoji.X)
-        :param description: A description of the job
-        :param info: Any additional information about the job
-        """
-        pass
+    Each job should have an emoji to signal job success (Emoji.CHECK_MARK or Emoji.X), a description of the job,
+    and can optionally have any additional information about the job.
+    """
+    emoji: Emoji
+    description: str
+    info: Optional[str] = None
 
 
 def job_list(jobs: List[Job]) -> str:

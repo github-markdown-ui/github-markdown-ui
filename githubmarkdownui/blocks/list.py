@@ -1,37 +1,33 @@
 from __future__ import annotations
 from abc import ABC
+from dataclasses import dataclass
 from typing import List, Union
 
 
+@dataclass
 class HtmlList(ABC):
-    """Abstract class for a HTML list."""
-    def __init__(self, items: List[Union[str, HtmlList]]) -> None:
-        """Creates a list using HTML syntax.
-
-        :param items: The items in this list. An HtmlList will be displayed as a sublist of the element before it
-        """
-        pass
+    """Abstract class for a HTML list. Any HtmlLists inside this one will be displayed as a sublist of the element before it.
+    """
+    items: Union[str, HtmlList]
 
 
+@dataclass
 class OrderedList(HtmlList):
     """Class to represent an ordered HTML list. An ordered list is a numbered list, for example:
 
     1. foo
     2. bar
     3. baz
-    """
-    def __init__(self, items: List[Union[str, HtmlList]], starting_number: int = 1) -> None:
-        """Creates an ordered list using HTML syntax.
 
-        :param items: The items in this list
-        :param starting_number: The number of the first item in this list
-        """
-        pass
+    The starting number represents the number the list should start counting at.
+    """
+    starting_number: int = 1
 
     def __str__(self) -> str:
         pass
 
 
+@dataclass
 class UnorderedList(HtmlList):
     """Class to represent an unordered HTML list. An unordered list is a bullet point list, for example:
 
@@ -39,9 +35,6 @@ class UnorderedList(HtmlList):
     - bar
     - baz
     """
-    def __init__(self, items: List[Union[str, HtmlList]]) -> None:
-        pass
-
     def __str__(self) -> str:
         pass
 
