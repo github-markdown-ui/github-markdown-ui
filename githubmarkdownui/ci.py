@@ -44,7 +44,7 @@ class CIJob:
     tasks: List[CITask]
     child_jobs: Optional[List[CIJob]] = None
 
-    def ci_task_list(tasks: Optional[List[CITask]] = None) -> str:
+    def ci_task_list(self, tasks: Optional[List[CITask]] = None) -> str:
         """Creates a task list in monospaced font. All of the task info will be aligned.
 
         :param tasks: An optional list of CITasks to be displayed. If this is not given, then all the tasks in the CIJob will
