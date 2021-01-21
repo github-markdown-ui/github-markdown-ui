@@ -40,7 +40,8 @@ class UnorderedList(HtmlList):
 
 
 def task_list(items: List[str], items_to_check: List[int]) -> str:
-    """Creates a task list in Markdown where each item can be checked off. This task list cannot be used inside a table.
+    """Creates a task list in GitHub Flavored Markdown where each item can be checked off. This task list cannot be used
+    inside a table.
 
     :param items: The items in the task list
     :param items_to_check: The indices (starting from 0) of the items that should be checked off

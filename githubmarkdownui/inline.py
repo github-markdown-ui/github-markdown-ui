@@ -1,33 +1,55 @@
 def bold(text: str) -> str:
-    """Alternative name for strong_emphasis."""
+    """Alternative name for strong_emphasis.
+
+    :param text: The text to be bolded
+    """
     return strong_emphasis(text)
 
 
 def code_span(text: str) -> str:
-    """Returns the text surrounded by <code> tags."""
+    """Returns the text surrounded by <code> tags.
+
+    :param text: The text that should appear as a code span
+    """
     pass
 
 
 def emphasis(text: str) -> str:
-    """Emphasizes (italicizes) the given text by placing <em> tags around it."""
+    """Emphasizes (italicizes) the given text by placing <em> tags around it.
+
+    :param text: The text to be emphasized
+    """
     pass
 
 
 def italics(text: str) -> str:
-    """Alternative name for emphasis."""
+    """Alternative name for emphasis.
+
+    :param text: The text to be italicized
+    """
     return emphasis(text)
 
 
 def link(text: str, url: str) -> str:
-    """Turns the given text into a link using <a> tags."""
+    """Turns the given text into a link using <a> tags.
+
+    :param text: The text for the link
+    :param url: The url for the link
+    """
     pass
 
 
 def strong_emphasis(text: str) -> str:
-    """Strongly emphasizes (bolds) the given text by placing <strong> tags around it."""
+    """Strongly emphasizes (bolds) the given text by placing <strong> tags around it.
+
+    :param text: The text to be strongly emphasized
+    """
     pass
 
 
 def strikethrough(text: str) -> str:
-    """Formats the text with a strikethrough by placing <del> tags around it."""
+    """Formats the text with a strikethrough by placing <del> tags around it.
+
+    :param text: The text to appear with a strikethrough
+    """
     pass
