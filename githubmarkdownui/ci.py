@@ -1,17 +1,22 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from enum import Enum, auto
 from typing import List, Optional
 
-from githubmarkdownui.emoji import Emoji
+
+class CIStatus(Enum):
+    """Enum to specify if a CI job or task has succeeded or failed."""
+    SUCCEEDED = auto()
+    FAILED = auto()
 
 
 @dataclass
 class CIJobMetadata:
-    """Class intended to hold metadata for a CIJob Execution. Each job should have an emoji to signal job success
-    (Emoji.CHECK_MARK or Emoji.X), a job name, optional job duration (specified as a string such as 8s or 25m 37s), optional
-    job failure type (such as Test Failure or Infrastructure Failure), and optional failure message. Since the name can be
-    any string, it can also be a link to a CI execution."""
-    emoji: Emoji
+    """Class intended to hold metadata for a CIJob Execution. Each job should have a CIStatus to signal success or failure,
+    a job name, optional job duration (specified as a string such as 8s or 25m 37s), optional job failure type (such as Test
+    Failure or Infrastructure Failure), and optional failure message. Since the name can be any string, it can also be a
+    link to a CI execution."""
+    status: CIStatus
     name: str
     duration: Optional[str] = None
     failure_type: Optional[str] = None
@@ -20,10 +25,10 @@ class CIJobMetadata:
 
 @dataclass
 class CITaskMetadata:
-    """Class intended to hold metadata for a CITask execution. Each task should have an emoji to signal task success
-    (Emoji.CHECK_MARK or Emoji.X), a task name, optional task duration (specified as a string such as 8s or 25m 37s), and any
-    additional information about the task, such as links to any relevant logs."""
-    emoji: Emoji
+    """Class intended to hold metadata for a CITask execution. Each task should have a CIStatus to signal success or failure,
+    a task name, optional task duration (specified as a string such as 8s or 25m 37s), and any additional information about
+    the task, such as links to any relevant logs."""
+    status: CIStatus
     name: str
     duration: Optional[str] = None
     info: Optional[str] = None
@@ -44,11 +49,10 @@ class CIJob:
     tasks: List[CITask]
     child_jobs: Optional[List[CIJob]] = None
 
-    def ci_task_list(self, tasks: Optional[List[CITask]] = None) -> str:
+    def ci_task_list(self, status: Optional[CIStatus] = None) -> str:
         """Creates a task list in monospaced font. All of the task info will be aligned.
 
-        :param tasks: An optional list of CITasks to be displayed. If this is not given, then all the tasks in the CIJob will
-        be displayed
+        :param status: Only tasks with the given status will be displayed. If not given, all tasks will be displayed
         """
         pass
 
