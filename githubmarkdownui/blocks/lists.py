@@ -10,6 +10,18 @@ class HtmlList(ABC):
     """
     items: List[Union[str, HtmlList]]
 
+    def build_list_contents(self) -> str:
+        """Constructs the contents of the list by building the <li> tags or any nested lists."""
+        list_body = ''
+
+        for item in self.items:
+            if isinstance(item, HtmlList):
+                list_body += str(item)
+            else:
+                list_body += f'<li>{item}</li>'
+
+        return list_body
+
 
 @dataclass
 class OrderedList(HtmlList):
@@ -20,11 +32,18 @@ class OrderedList(HtmlList):
     3. baz
 
     The starting number represents the number the list should start counting at.
+
+    To turn this OrderedList into an HTML string, simply cast this object to a str.
     """
     starting_number: int = 1
 
     def __str__(self) -> str:
-        pass
+        if self.starting_number != 1:
+            opening_tag = f'<ol start="{self.starting_number}">'
+        else:
+            opening_tag = '<ol>'
+
+        return f'{opening_tag}{self.build_list_contents()}</ol>'
 
 
 @dataclass
@@ -34,9 +53,11 @@ class UnorderedList(HtmlList):
     - foo
     - bar
     - baz
+
+    To turn this UnorderedList into an HTML string, simply cast this object to a str.
     """
     def __str__(self) -> str:
-        pass
+        return f'<ul>{self.build_list_contents()}</ul>'
 
 
 def task_list(items: List[str], items_to_check: List[int]) -> str:

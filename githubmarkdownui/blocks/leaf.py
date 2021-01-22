@@ -25,4 +25,7 @@ def heading(text: str, level: int) -> str:
 
     :raises: Exception if the level is not between 1 to 6 inclusive
     """
-    pass
+    if not 1 <= level <= 6:
+        raise Exception('Level must be between 1 to 6 inclusive')
+
+    return f'<h{level}>{text}</h{level}>'
