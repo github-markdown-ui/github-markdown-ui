@@ -1,5 +1,5 @@
 from __future__ import annotations
-from abc import ABC
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import List, Union
 
@@ -7,6 +7,8 @@ from typing import List, Union
 @dataclass
 class HtmlList(ABC):
     """Abstract class for a HTML list. Any HtmlLists inside this one will be displayed as a sublist of the element before it.
+
+    Any child classes must override __str__ to output the list in HTML syntax.
     """
     items: List[Union[str, HtmlList]]
 
@@ -21,6 +23,11 @@ class HtmlList(ABC):
                 list_body += f'<li>{item}</li>'
 
         return list_body
+
+    @abstractmethod
+    def __str__(self) -> str:
+        """Outputs this HtmlList in HTML list syntax."""
+        pass
 
 
 @dataclass

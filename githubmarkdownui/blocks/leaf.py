@@ -1,5 +1,7 @@
 from typing import Optional
 
+from githubmarkdownui.constants import HEADING_MAX_LEVEL, HEADING_MIN_LEVEL
+
 
 def thematic_break() -> str:
     """Returns a <hr> tag, used to create a thematic break. Equivalent to --- in Markdown."""
@@ -25,7 +27,7 @@ def heading(text: str, level: int) -> str:
 
     :raises: Exception if the level is not between 1 and 6 inclusive
     """
-    if not 1 <= level <= 6:
-        raise Exception('Level must be between 1 and 6 inclusive')
+    if not HEADING_MIN_LEVEL <= level <= HEADING_MAX_LEVEL:
+        raise Exception(f'Level must be between {HEADING_MIN_LEVEL} and {HEADING_MAX_LEVEL} inclusive')
 
     return f'<h{level}>{text}</h{level}>'
