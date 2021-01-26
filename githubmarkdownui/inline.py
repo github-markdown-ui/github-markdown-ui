@@ -11,7 +11,7 @@ def code_span(text: str) -> str:
 
     :param text: The text that should appear as a code span
     """
-    pass
+    return f'<code>{text}</code>'
 
 
 def emphasis(text: str) -> str:
@@ -19,7 +19,7 @@ def emphasis(text: str) -> str:
 
     :param text: The text to be emphasized
     """
-    pass
+    return f'<em>{text}</em>'
 
 
 def italics(text: str) -> str:
@@ -36,7 +36,7 @@ def link(text: str, url: str) -> str:
     :param text: The text for the link
     :param url: The url for the link
     """
-    pass
+    return f'<a href="{url}">{text}</a>'
 
 
 def strong_emphasis(text: str) -> str:
@@ -44,7 +44,7 @@ def strong_emphasis(text: str) -> str:
 
     :param text: The text to be strongly emphasized
     """
-    pass
+    return f'<strong>{text}</strong>'
 
 
 def strikethrough(text: str) -> str:
