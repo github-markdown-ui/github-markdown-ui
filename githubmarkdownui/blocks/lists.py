@@ -85,7 +85,7 @@ def task_list(items: List[str], items_to_check: Optional[List[int]] = None) -> s
 
     task_list_syntax = ''
 
-    for i in range(len(items)):
-        task_list_syntax += f'- [{"x" if i in items_to_check else " "}] {items[i]}\n'
+    for index, item in enumerate(items):
+        task_list_syntax += f'- [{"x" if index in items_to_check else " "}] {item}\n'
 
     return task_list_syntax.rstrip('\n')

@@ -39,8 +39,7 @@ def table(content: List[List[str]], alignment: List[Optional[TableAlignment]] = 
     """
     # Check if the inputs are valid. The content parameter must be a m x n matrix and alignment must be the same length as
     # one element in content.
-    is_valid_table = all(isinstance(row, list) and len(row) == len(content[0]) for row in content)
-    if not is_valid_table:
+    if not all(isinstance(row, list) and len(row) == len(content[0]) for row in content):
         raise TableDimensionError('Each row in the table must have the same number of columns')
 
     if alignment and len(alignment) != len(content[0]):
@@ -49,27 +48,27 @@ def table(content: List[List[str]], alignment: List[Optional[TableAlignment]] = 
     table_syntax = '<table><thead><tr>'
 
     # Build the table header.
-    for i in range(len(content[0])):
-        if alignment and alignment[i]:
-            table_syntax += f'<th align="{alignment[i].value}">'
+    for index, item in enumerate(content[0]):
+        if alignment and alignment[index]:
+            table_syntax += f'<th align="{alignment[index].value}">'
         else:
             table_syntax += '<th>'
 
-        table_syntax += f'{content[0][i]}</th>'
+        table_syntax += f'{item}</th>'
 
     table_syntax += '</tr></thead><tbody>'
 
-    # Build the table body.
-    for i in range(1, len(content)):
+    # Build the table body. Skip the first list in content because that is the table headers.
+    for row in content[1:]:
         table_syntax += '<tr>'
 
-        for j in range(len(content[i])):
-            if alignment and alignment[j]:
-                table_syntax += f'<td align="{alignment[j].value}">'
+        for index, item in enumerate(row):
+            if alignment and alignment[index]:
+                table_syntax += f'<td align="{alignment[index].value}">'
             else:
                 table_syntax += '<td>'
 
-            table_syntax += f'{content[i][j]}</td>'
+            table_syntax += f'{item}</td>'
 
         table_syntax += '</tr>'
 
