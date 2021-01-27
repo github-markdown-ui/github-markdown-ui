@@ -5,7 +5,7 @@ from githubmarkdownui.constants import HEADING_MAX_LEVEL, HEADING_MIN_LEVEL
 
 def thematic_break() -> str:
     """Returns a <hr> tag, used to create a thematic break. Equivalent to --- in Markdown."""
-    pass
+    return '<hr>'
 
 
 def code_block(text: str, language: Optional[str] = None) -> str:
@@ -15,7 +15,10 @@ def code_block(text: str, language: Optional[str] = None) -> str:
     :param text: The text inside the code block
     :param language: The language to use for syntax highlighting
     """
-    pass
+    if language:
+        return f'```{language}\n{text}\n```'
+
+    return f'<pre><code>{text}</code></pre>'
 
 
 def heading(text: str, level: int) -> str:

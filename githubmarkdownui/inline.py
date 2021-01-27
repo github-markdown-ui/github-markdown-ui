@@ -39,17 +39,17 @@ def link(text: str, url: str) -> str:
     return f'<a href="{url}">{text}</a>'
 
 
+def strikethrough(text: str) -> str:
+    """Formats the text with a strikethrough by placing <del> tags around it.
+
+    :param text: The text to appear with a strikethrough
+    """
+    return f'<del>{text}</del>'
+
+
 def strong_emphasis(text: str) -> str:
     """Strongly emphasizes (bolds) the given text by placing <strong> tags around it.
 
     :param text: The text to be strongly emphasized
     """
     return f'<strong>{text}</strong>'
-
-
-def strikethrough(text: str) -> str:
-    """Formats the text with a strikethrough by placing <del> tags around it.
-
-    :param text: The text to appear with a strikethrough
-    """
-    pass

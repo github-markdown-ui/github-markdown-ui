@@ -61,3 +61,17 @@ def test_nested_lists(outer_list_tags, inner_list_tags):
         {outer_list_tags[1]}
         """
     )
+
+
+def test_task_list():
+    assert lists.task_list(['foo', 'bar', 'baz']) == '- [ ] foo\n- [ ] bar\n- [ ] baz'
+
+
+def test_task_list_check_items():
+    assert lists.task_list(['foo', 'bar', 'baz'], [0, 1]) == '- [x] foo\n- [x] bar\n- [ ] baz'
+
+
+@pytest.mark.parametrize('index', [-1, 3, 8])
+def test_task_list_check_invalid_index(index):
+    with pytest.raises(Exception):
+        lists.task_list(['foo', 'bar', 'baz'], [index])

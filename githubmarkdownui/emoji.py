@@ -2,12 +2,14 @@ from enum import Enum
 
 
 class Emoji(Enum):
-    X = ':x:'
-    WARNING = ':warning:'
-    CHECK_MARK = ':white_check_mark:'
-    SQUARE = ':white_large_square:'
-    HOURGLASS = ':hourglass_flowing_sand:'
-    INFORMATION = ':information_source:'
-    PAGE = ':page_facing_up:'
-    LOCK = ':lock:'
-    KEY = ':key:'
+    # Use the actual emojis here instead of the shortcuts like :x: or :warning: because that text will show up inside
+    # code blocks instead of the actual emoji.
+    X = '❌'
+    WARNING = '⚠️'
+    CHECK_MARK = '✅'
+    SQUARE = '⬜'
+    HOURGLASS = '⏳'
+    INFORMATION = 'ℹ️'
+    PAGE = '📄'
+    LOCK = '🔒'
+    KEY = '🔑'

@@ -12,4 +12,4 @@ def collapsible_section(title: str, text: str) -> str:
     :param title: The title for this collapsible section
     :param text: The text to be displayed inside this collapsible section
     """
-    pass
+    return f'<details><summary>{title}</summary>\n{text}</details>'

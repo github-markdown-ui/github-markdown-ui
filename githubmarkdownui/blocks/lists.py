@@ -1,7 +1,7 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import List, Union
+from typing import Optional, List, Union
 
 
 @dataclass
@@ -67,7 +67,7 @@ class UnorderedList(HtmlList):
         return f'<ul>{self.build_list_contents()}</ul>'
 
 
-def task_list(items: List[str], items_to_check: List[int]) -> str:
+def task_list(items: List[str], items_to_check: Optional[List[int]] = None) -> str:
     """Creates a task list in GitHub Flavored Markdown where each item can be checked off. This task list cannot be used
     inside a table.
 
@@ -76,4 +76,16 @@ def task_list(items: List[str], items_to_check: List[int]) -> str:
 
     :raises: Exception if an index in items_to_check does not exist in the items list
     """
-    pass
+    if not items_to_check:
+        items_to_check = []
+
+    for index in items_to_check:
+        if index < 0 or index > len(items) - 1:
+            raise Exception(f'Cannot check off non-existent index {index} in task list')
+
+    task_list_syntax = ''
+
+    for index, item in enumerate(items):
+        task_list_syntax += f'- [{"x" if index in items_to_check else " "}] {item}\n'
+
+    return task_list_syntax.rstrip('\n')
