@@ -4,6 +4,7 @@ from enum import Enum
 from typing import List, Optional
 
 from githubmarkdownui.blocks.leaf import code_block
+from githubmarkdownui.constants import TREE_CONTINUE_MARKER, TREE_END_MARKER, TREE_MORE_JOBS_MARKER
 from githubmarkdownui.emoji import Emoji
 from githubmarkdownui.inline import bold
 
@@ -86,7 +87,8 @@ class CIJob:
     child_jobs: Optional[List[CIJob]] = None
 
     def ci_task_list(self, status: Optional[CIStatus] = None) -> str:
-        """Creates a task list in monospaced font. All of the task info will be aligned.
+        """Creates a task list in monospaced font. All of the task info will be aligned. Only the tasks in the parent job
+        will be displayed.
 
         :param status: Only tasks with the given status will be displayed. If not given, all tasks will be displayed
         """
@@ -106,7 +108,7 @@ class CIJob:
         return code_block('\n'.join([task.build_task_string(longest_string_length) for task in self.tasks
                                     if not status or status and task.metadata.status == status]))
 
-    def ci_job_tree(self, status: Optional[CIStatus] = None) -> str:
+    def child_ci_job_tree(self, status: Optional[CIStatus] = None) -> str:
         """Creates a job tree consisting of child jobs in monospaced font. Any tasks that belong to a job will show up under the job.
 
         :param status: Only jobs and tasks with the given status will be displayed. If not given, all jobs and tasks will be
@@ -131,13 +133,27 @@ class CIJob:
             else:
                 tasks_to_display = job.tasks
 
+            task_tree_strings = []
+            longest_task_string_length = 0
+            # Loop through the tasks the first time to build the left justified strings and calculate max string length.
             for task_index, task in enumerate(tasks_to_display):
                 # If this task is part of the last job then do not display a │ to imply the job tree extends.
-                job_tree_extender = '│' if job_index != len(jobs_to_display) - 1 else ' '
+                job_tree_extender = TREE_MORE_JOBS_MARKER if job_index != len(jobs_to_display) - 1 else ' '
                 # The last task should be prefixed with └─ so it looks like there's no other tasks after it.
-                task_tree_extender = '├─' if task_index != len(tasks_to_display) - 1 else '└─'
+                task_tree_extender = TREE_CONTINUE_MARKER if task_index != len(tasks_to_display) - 1 else TREE_END_MARKER
 
-                job_tree_strings.append(f'{task.metadata.status.value} {job_tree_extender}\t{task_tree_extender} '
-                                        f'{task.metadata.name}{"   " + task.metadata.info if task.metadata.info else ""}')
+                task_tree_string = f'{task.metadata.status.value} {job_tree_extender}\t{task_tree_extender} ' \
+                    f'{task.metadata.name}'
+                string_length = len(task_tree_string)
+
+                if string_length > longest_task_string_length:
+                    longest_task_string_length = string_length
+
+                task_tree_strings.append(task_tree_string)
+
+            # Now left justify using the longest string length and add additional info.
+            for task_index, task in enumerate(tasks_to_display):
+                job_tree_strings.append(f'{task_tree_strings[task_index]:<{longest_task_string_length}}'
+                                        f'{"   " + task.metadata.info if task.metadata.info else ""}')
 
         return code_block('\n'.join(job_tree_strings))

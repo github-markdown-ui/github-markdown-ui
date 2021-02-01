@@ -1,6 +1,7 @@
 import pytest
 
 from githubmarkdownui import ci
+from githubmarkdownui.constants import TREE_CONTINUE_MARKER, TREE_END_MARKER, TREE_MORE_JOBS_MARKER
 from githubmarkdownui.inline import bold
 
 
@@ -97,23 +98,24 @@ def test_ci_task_list(job, status, expected):
 @pytest.mark.parametrize('status, expected', [
     [
         None,
-        f'<pre><code>{ci.CIStatus.SUCCEEDED.value} ├─ first child job\n{ci.CIStatus.SUCCEEDED.value} │\t└─ my first task   '
-        f'additional info\n{ci.CIStatus.FAILED.value} └─ second child job\n{ci.CIStatus.SUCCEEDED.value}  \t├─ another task'
-        f'   additional info\n{ci.CIStatus.FAILED.value}  \t├─ task 2 foobarbaz   additional info\n'
-        # TODO: fix this there shouldn't be a None here!!!!!!
-        f'{ci.CIStatus.SUCCEEDED.value}  \t├─ third task\n{ci.CIStatus.FAILED.value}  \t└─ another failed task   '
-        'additional info</code></pre>'
+        f'<pre><code>{ci.CIStatus.SUCCEEDED.value} {TREE_CONTINUE_MARKER} first child job\n{ci.CIStatus.SUCCEEDED.value} '
+        f'{TREE_MORE_JOBS_MARKER}\t{TREE_END_MARKER} my first task   additional info\n{ci.CIStatus.FAILED.value} '
+        f'{TREE_END_MARKER} second child job\n{ci.CIStatus.SUCCEEDED.value}  \t{TREE_CONTINUE_MARKER} another task          '
+        f'additional info\n{ci.CIStatus.FAILED.value}  \t{TREE_CONTINUE_MARKER} task 2 foobarbaz      additional info\n'
+        f'{ci.CIStatus.SUCCEEDED.value}  \t{TREE_CONTINUE_MARKER} third task         \n{ci.CIStatus.FAILED.value}  \t'
+        f'{TREE_END_MARKER} another failed task   additional info</code></pre>'
     ],
     [
         ci.CIStatus.SUCCEEDED,
-        f'<pre><code>{ci.CIStatus.SUCCEEDED.value} └─ first child job\n{ci.CIStatus.SUCCEEDED.value}  \t└─ my first task   '
-        'additional info</code></pre>',
+        f'<pre><code>{ci.CIStatus.SUCCEEDED.value} {TREE_END_MARKER} first child job\n{ci.CIStatus.SUCCEEDED.value}  \t'
+        f'{TREE_END_MARKER} my first task   additional info</code></pre>'
     ],
     [
         ci.CIStatus.FAILED,
-        f'<pre><code>{ci.CIStatus.FAILED.value} └─ second child job\n{ci.CIStatus.FAILED.value}  \t├─ task 2 foobarbaz   '
-        f'additional info\n{ci.CIStatus.FAILED.value}  \t└─ another failed task   additional info</code></pre>'
+        f'<pre><code>{ci.CIStatus.FAILED.value} {TREE_END_MARKER} second child job\n{ci.CIStatus.FAILED.value}  \t'
+        f'{TREE_CONTINUE_MARKER} task 2 foobarbaz      additional info\n{ci.CIStatus.FAILED.value}  \t{TREE_END_MARKER} '
+        'another failed task   additional info</code></pre>'
     ],
 ])
-def test_ci_job_tree(status, expected):
-    assert sample_job.ci_job_tree(status) == expected
+def test_child_ci_job_tree(status, expected):
+    assert sample_job.child_ci_job_tree(status) == expected
