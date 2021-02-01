@@ -138,6 +138,6 @@ class CIJob:
                 task_tree_extender = '├─' if task_index != len(tasks_to_display) - 1 else '└─'
 
                 job_tree_strings.append(f'{task.metadata.status.value} {job_tree_extender}\t{task_tree_extender} '
-                                        f'{task.metadata.name}   {task.metadata.info}')
+                                        f'{task.metadata.name}{"   " + task.metadata.info if task.metadata.info else ""}')
 
         return code_block('\n'.join(job_tree_strings))
