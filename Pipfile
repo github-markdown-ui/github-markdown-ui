@@ -4,10 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+sphinx-autodoc-typehints = "*"
 
 [dev-packages]
 flake8 = "*"
 pytest = "*"
+sphinx = "*"
+sphinx-rtd-theme = "*"
 
 [requires]
 python_version = "3.7"
