@@ -4,10 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+setuptools = "*"
+wheel = "*"
 
 [dev-packages]
 flake8 = "*"
 pytest = "*"
+twine = "*"
 
 [requires]
 python_version = "3.7"
