@@ -14,6 +14,7 @@ sphinx-rtd-theme = "*"
 setuptools = "*"
 twine = "*"
 wheel = "*"
+bump2version = "*"
 
 [requires]
 python_version = "3.7"
